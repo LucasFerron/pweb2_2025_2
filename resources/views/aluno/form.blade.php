@@ -1,7 +1,8 @@
 @extends('base')
 @section('titulo', 'Formulário Aluno')
-@section('conteúdo')
-    <form action="" method="post">
+@section('conteudo')
+    <form action="{{route('aluno.store')}}" method="post">
+        @csrf
         <div class="row">
             <div class="col">
                 <label for="">Nome</label>
@@ -24,3 +25,4 @@
 
         </div>
     </form>
+@stop

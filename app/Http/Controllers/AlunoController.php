@@ -13,46 +13,43 @@ class AlunoController extends Controller
 
 
     public function index()
-    {/*
-        Aluno::create([
-            "nome"=>'Jackson Five',
-            "cpf"=>'555000777-55',
-            "telefone"=>'49 9 98404523',
-        ]);
-    */
+    {
         $dados = Aluno::All();
         //dd($alunos);
 
         return view('aluno.list', ['dados' => $dados]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('aluno.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+
+        $request->validate([
+            'nome'=>'required',
+            'cpf'=>'required',
+
+        ],[
+            'nome.required' => 'O :attribute é obrigatório',
+            'cpf.required' => 'O :attribute é obrigatório',
+        ]);
+
+        Aluno::create($request->all());
+        return redirect('aluno');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
