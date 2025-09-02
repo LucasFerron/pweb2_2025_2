@@ -1,16 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello World!</h1>
-    <p>Imma be fera na programattion</p>
-    <p>I love code!</p>
-    <table>
+@extends('base')
+@section('titulo', 'Formulário Aluno')
+@section('conteudo')
+    <h3>Listagem de Alunos</h3>
+    <div class="row">
+        <div class="col">
+            <form action="{{ route('aluno.search') }}" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col-md-3">
+                        <label form="form-label">Tipo</label>
+                        <select name="tipo" class="form-select">
+                            <option value="nome">Nome</option>
+                            <option value="cpf">CPF</option>
+                            <option value="telefone">Telefone</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">Valor</label>
+                        <input type="text" class="form-control" name="valor" placeholder="Pesquisar...">
+                    </div>
+            </form>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">
+                    Buscar
+                </button>
+            </div>
+            <div class="col-md-1">
+                <a class="btn btn-success" href="{{ url('/aluno/create') }}">Cadastrar</a>
+            </div>
+        </div>
+
+
+    </div>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <td>#ID</td>
@@ -22,15 +44,21 @@
         <tbody>
             @foreach ($dados as $item)
                 <tr>
-                    <td>{{$item->id}}</td>
-                    <td>{{$item->nome}}</td>
-                    <td>{{$item->cpf}}</td>
-                    <td>{{$item->telefone}}</td>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->nome }}</td>
+                    <td>{{ $item->cpf }}</td>
+                    <td>{{ $item->telefone }}</td>
+                    <td>Editar</td>
+                    <td>
+                        <form action="{{ route('aluno.destroy', $item->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('Deseja Remover o registro?')"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
-
-
+@stop
