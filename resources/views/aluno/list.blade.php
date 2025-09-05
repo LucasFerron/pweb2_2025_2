@@ -22,11 +22,12 @@
             </form>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                     Buscar
                 </button>
             </div>
             <div class="col-md-1">
-                <a class="btn btn-success" href="{{ url('/aluno/create') }}">Cadastrar</a>
+                <a class="btn btn-success" href="{{ url('/aluno/create') }}"><i class="fa-solid fa-plus"></i>Cadastrar</a>
             </div>
         </div>
 
@@ -48,7 +49,7 @@
                     <td>{{ $item->nome }}</td>
                     <td>{{ $item->cpf }}</td>
                     <td>{{ $item->telefone }}</td>
-                    <td>Editar</td>
+                    <td><a class="btn btn-sm btn-outline-warning" href="{{route('aluno.edit', $item->id)}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                     <td>
                         <form action="{{ route('aluno.destroy', $item->id)}}" method="post">
                             @csrf
